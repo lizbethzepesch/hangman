@@ -16,10 +16,9 @@ char* get_word(char secret[]){
 }
 
 int mx_strchr(const char *s, int c){
-    do {
-        if (*s == c)
+    for (int i = 0; i < mx_strlen(s); i++)
+        if(s[i] == c)
             return 1;
-    } while (*s++);
     return 0;
 }
 
@@ -51,7 +50,7 @@ void get_available_letters(const char letters_guessed[], char available_letters[
 
 void hangman(const char secret[]){
     int tries = 8;
-    char letter[15];
+    char letter;
 
     char guessed_word[15];
     char letters_guessed[8];
@@ -83,25 +82,23 @@ void hangman(const char secret[]){
 
         printf("Please guess a letter: ");
         scanf("%c", &letter);
-
-        if(mx_strlen(letter) == 1){
-            letters_guessed[8 - tries] = letter[0];
-            printf("%d", mx_strlen(letter));
-            if (is_word_guessed(secret, letters_guessed)) {
-                get_guessed_word(secret, letters_guessed, guessed_word);
-                printf("Good guess:");
-                for (int j = 0; guessed_word[j] != '\0'; j++)
-                    printf(" %c", guessed_word[j]);
-                printf("%c", '\n');
-            } 
-            else {
-                printf("Oops! That letter is not in my word:");
-                tries--;
-                for (int j = 0; guessed_word[j] != '\0'; j++)
-                    printf(" %c", guessed_word[j]);
-                printf("%c", '\n');
-            }
+        letters_guessed[8 - tries] = letter;
+        if (is_word_guessed(secret, letters_guessed)) {
+            get_guessed_word(secret, letters_guessed, guessed_word);
+            printf("Good guess:");
+            for (int j = 0; guessed_word[j] != '\0'; j++)
+                printf(" %c", guessed_word[j]);
+            printf("%c", '\n');
+        } 
+        else {
+            printf("Oops! That letter is not in my word:");
+            tries--;
+            for (int j = 0; guessed_word[j] != '\0'; j++)
+                printf(" %c", guessed_word[j]);
+            printf("%c", '\n');
         }
+            
+        
         if(!mx_strchr(guessed_word, '_')){
             printf("-------------\nCongratulations, you won!");
             return;
