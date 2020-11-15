@@ -38,10 +38,14 @@ void get_guessed_word(const char secret[], const char letters_guessed[], char gu
 
 void get_available_letters(const char letters_guessed[], char available_letters[]){
     for (int i = 0; letters_guessed[i]; i++) {
-
-    }
-    
+        if (mx_strchr(available_letters, letters_guessed[i])) {
+            for (int j = 0; j < mx_strlen(available_letters); j++) {
+                if(j == mx_strlen(available_letters))
+            }
+            
+        }
         
+    }        
 }
 
 void hangman(const char secret[]){
