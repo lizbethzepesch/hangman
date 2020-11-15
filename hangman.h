@@ -2,6 +2,7 @@
 #define HANGMAN_H
 
 #include "stdio.h"
+#include <stdlib.h>
 
 char* get_word(char secret[]);
 
