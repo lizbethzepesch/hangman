@@ -37,15 +37,14 @@ void get_guessed_word(const char secret[], const char letters_guessed[], char gu
 }
 
 void get_available_letters(const char letters_guessed[], char available_letters[]){
-    for (int i = 0; letters_guessed[i]; i++) {
-        if (mx_strchr(available_letters, letters_guessed[i])) {
-            for (int j = 0; j < mx_strlen(available_letters); j++) {
-                if(j == mx_strlen(available_letters))
-            }
-            
-        }
-        
-    }        
+    for (int i = 0; letters_guessed[i]; i++) 
+        if (mx_strchr(available_letters, letters_guessed[i])) 
+
+            for (int j = 0; j < mx_strlen(available_letters); j++) 
+                if (j == mx_strlen(available_letters))
+                    available_letters[j] = NULL;
+                else
+                    available_letters[j] = available_letters[j + 1];
 }
 
 void hangman(const char secret[]){
@@ -68,15 +67,44 @@ void hangman(const char secret[]){
     printf("Welcome to the game, Hangman!\n");
     printf("I am thinking of a word that is %d letters long.\n", mx_strlen(secret));
 
-    for (; tries > 0; tries--) {
+    for (; tries > 0;) {
                 
         printf("-------------\n");
         printf("You have %d guesses left.\n", tries);
         printf("Available letters:");
         get_available_letters(letters_guessed, available_letters);
-        printf(available_letters);
-        
+
+        for (int j = 0; available_letters[j]; j++)
+            printf("%c", available_letters[j]);
+        printf('\n');
+
+        printf("Please guess a letter:");
         scanf("%c", &letter);
+        letters_guessed[8 - tries] = letter;
+
+        if (is_word_guessed(secret, letters_guessed)) {
+            get_guessed_word(secret, letters_guessed, guessed_word);
+            printf("Good guess:");
+            for (int j = 0; guessed_word[j]; j++)
+                printf(" %c", guessed_word[j]);
+            printf('\n');
+        } 
+        else {
+            printf("Oops! That letter is not in my word:");
+            tries--;
+            for (int j = 0; guessed_word[j]; j++)
+                printf(" %c", guessed_word[j]);
+            printf('\n');
+        }
+
+        if(!mx_strchr(guessed_word, '_')){
+            printf("-------------\nCongratulations, you won!");
+            return;
+        }
     }   
+    printf("Sorry, you ran out of guesses. The word was ");
+    for (int i = 0; secret[i]; i++)
+        printf(secret[i]);
+    printf('.');
     
 }

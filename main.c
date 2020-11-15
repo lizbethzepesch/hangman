@@ -2,7 +2,6 @@
 
 int main(){
     char secret[15];
-    get_word(secret);
-    hangman(secret);
+    hangman(get_word(secret));
     return 0;
 }
