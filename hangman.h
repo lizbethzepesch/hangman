@@ -3,7 +3,7 @@
 
 #include "stdio.h"
 
-int get_word(char secret[]);
+char* get_word(char secret[]);
 
 int is_word_guessed(const char secret[], const char letters_guessed[]); 
 //с помощью данной функции можно будет узнать, угадано ли слово (незаглавные буквы).
