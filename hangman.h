@@ -1,4 +1,5 @@
-#pragma once
+#ifndef HANGMAN_H
+#define HANGMAN_H
 
 #include "stdio.h"
 
@@ -21,3 +22,5 @@ void hangman(const char secret[]);
 //будут находиться в файле hangman.c. Их декларации находятся в файле hangman.h. 
 //Сама программа будет находиться в файле main.c, 
 //которая считает случайное слово из словаря с помощью функции get_word() и отдаст на вход функции hangman().
+
+#endif

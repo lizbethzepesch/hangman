@@ -1,15 +1,8 @@
 #include "hangman.h"
 
 int main(){
-
-    int tries = 0;
-    char letter = ' ';
-    for (; tries < 8; tries++)
-    {
-        
-        scanf("%c", &);
-    }
-    
-
+    char secret[15];
+    get_word(secret);
+    hangman(secret);
     return 0;
 }
